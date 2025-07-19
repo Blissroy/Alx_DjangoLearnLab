@@ -21,8 +21,6 @@ def get_books_in_library(library_name):
 def get_librarian_for_library(library_name):
     """Retrieve the librarian for a library"""
     try:
-        library = Library.objects.get(name=library_name)
-        # Access through OneToOne relationship
-        return library.librarian
-    except Library.DoesNotExist:
+        return Librarian.objects.get(library__name=library_name)
+    except Librarian.DoesNotExist:
         return None
