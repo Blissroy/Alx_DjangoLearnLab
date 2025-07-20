@@ -14,8 +14,8 @@ urlpatterns = [
 =======
     path('LoginView.as_view(template_name='login'),
     path('LogoutView.as_view(template_name='logout'),
-    path('books/add/', views.add_book, name='add_book'),
-    path('books/edit/<int:book_id>/', views.edit_book, name='edit_book'),
+    path('books/add/', views.add_book, name='add_book\'),
+    path('books/edit/<int:book_id>/', views.edit_book, name='edit_book\'),
     path('books/delete/<int:book_id>/', views.delete_book, name='delete_book'),
 >>>>>>> a70b1a89dc24e2e630bdc0f3c8b2c7fe4df59436
 ]
