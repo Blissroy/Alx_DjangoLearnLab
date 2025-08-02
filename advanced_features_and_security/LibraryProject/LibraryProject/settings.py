@@ -140,3 +140,11 @@ SESSION_COOKIE_SECURE = True
 
 # Recommended: ensure your site uses HTTPS
 SECURE_SSL_REDIRECT = True  # Optional, redirects all HTTP to HTTPS
+# Security settings
+SECURE_SSL_REDIRECT = True  # Redirect all non-HTTPS requests to HTTPS
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # For proxy setups
+
+# HTTP Strict Transport Security
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Include all subdomains
+SECURE_HSTS_PRELOAD = True  # Allow preloading in browsers
