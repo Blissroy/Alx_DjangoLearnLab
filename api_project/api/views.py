@@ -1,11 +1,11 @@
 from django.shortcuts import render
-from rest_framework import serializers
+from rest_framework import generics
 from .models import Book
+from .serializers import BookSerializer  # Fixed import statement
 
-class BookSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Book
-        fields = ['id', 'title', 'author', 'published_date', 
-                 'isbn', 'page_count', 'cover_url', 'language']
-        read_only_fields = ['id']
-# Create your views here.
+class BookList(generics.ListAPIView):
+    """
+    API endpoint that allows viewing all books
+    """
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
