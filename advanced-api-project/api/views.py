@@ -62,5 +62,38 @@ class BookDeleteView(generics.DestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [permissions.IsAuthenticated]
+    # In api/views.py
+from rest_framework.response import Response
+from rest_framework import status
+
+class BookCreateView(generics.CreateAPIView):
+    # ... existing code ...
+    
+    def create(self, request, *args, **kwargs):
+        """Custom create method with enhanced response"""
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response({
+            'status': 'success',
+            'data': serializer.data
+        }, status=status.HTTP_201_CREATED, headers=headers)
+
+class BookUpdateView(generics.UpdateAPIView):
+    # ... existing code ...
+    
+    def update(self, request, *args, **kwargs):
+        """Custom update method with partial updates support"""
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        
+        return Response({
+            'status': 'success',
+            'data': serializer.data
+        })
 
 # Create your views here.
