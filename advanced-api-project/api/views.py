@@ -166,4 +166,25 @@ class BookDeleteView(generics.DestroyAPIView):
     # ... existing code ...
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
 >>>>>>> 654fed327fd21993d1b397dac16b82abcb85a5d3
+from rest_framework.filters import SearchFilter, OrderingFilter  # Add this import
+from django_filters.rest_framework import DjangoFilterBackend
+from .models import Book
+from .serializers import BookSerializer
+from .filters import BookFilter  # Make sure you have this filter class created
+
+class BookListView(generics.ListAPIView):
+    """
+    List all books with filtering, searching and ordering capabilities.
+    """
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    filter_backends = [
+        DjangoFilterBackend,  # For field filtering
+        SearchFilter,        # For search functionality
+        OrderingFilter       # For ordering results  # THIS WAS MISSING
+    ]
+    filterset_class = BookFilter  # Your custom filter class
+    search_fields = ['title', 'author__name']  # Fields to search in
+    ordering_fields = ['title', 'publication_year']  # Fields available for ordering
+    ordering = ['title']  # Default ordering
 
