@@ -95,5 +95,14 @@ class BookUpdateView(generics.UpdateAPIView):
             'status': 'success',
             'data': serializer.data
         })
+        from .permissions import IsOwnerOrReadOnly
+
+class BookUpdateView(generics.UpdateAPIView):
+    # ... existing code ...
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
+
+class BookDeleteView(generics.DestroyAPIView):
+    # ... existing code ...
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
 
 # Create your views here.
