@@ -1,22 +1,21 @@
-# django_blog/settings.py
-import os
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+        'USER': '',      # Add this line (empty for SQLite)
+        'PORT': '',      # Add this line (empty for SQLite)
+    }
+}
 
-# ... existing code ...
-
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'APP_DIRS': True,
-        # ... rest of the TEMPLATES config ...
-    },
-]
-
-# ... existing code ...
-
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'blog/static'),
+# Make sure blog app is in INSTALLED_APPS
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'blog',  # This should be present
 ]
 
 
