@@ -22,25 +22,17 @@ urlpatterns = [
     path('profile/', views.profile_view, name='profile'),
 ]
 from django.urls import path
-from . import views
-from django.conf import settings
-from django.conf.urls.static import static
+from .views import (
+    PostListView, PostDetailView,
+    PostCreateView, PostUpdateView, PostDeleteView
+)
+
+app_name = 'blog'
 
 urlpatterns = [
-    # Blog post URLs
-    path('', views.PostListView.as_view(), name='post_list'),
-    path('post/<int:pk>/', views.PostDetailView.as_view(), name='post_detail'),
-    path('post/new/', views.PostCreateView.as_view(), name='post_new'),
-    path('post/<int:pk>/edit/', views.PostUpdateView.as_view(), name='post_edit'),
-    path('post/<int:pk>/delete/', views.PostDeleteView.as_view(), name='post_delete'),
-    
-    # Authentication URLs
-    path('register/', views.register_view, name='register'),
-    path('login/', views.login_view, name='login'),
-    path('logout/', views.logout_view, name='logout'),
-    path('profile/', views.profile_view, name='profile'),
+    path('posts/', PostListView.as_view(), name='post-list'),
+    path('posts/new/', PostCreateView.as_view(), name='post-create'),
+    path('posts/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
+    path('posts/<int:pk>/edit/', PostUpdateView.as_view(), name='post-update'),
+    path('posts/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
