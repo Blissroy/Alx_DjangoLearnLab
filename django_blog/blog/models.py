@@ -74,5 +74,22 @@ class UserProfile(models.Model):
                 output_size = (300, 300)
                 img.thumbnail(output_size)
                 img.save(self.profile_picture.path)
+from django.db import models
+from django.contrib.auth.models import User
+from django.utils import timezone
+from django.urls import reverse
+from .models import Post  # ensure Post is already defined
 
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def _str_(self):
+        return f'Comment by {self.author.username} on {self.post.title}'
+
+    def get_absolute_url(self):
+        return reverse('blog:post-detail', kwargs={'pk': self.post.pk})
 
