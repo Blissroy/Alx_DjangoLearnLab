@@ -132,3 +132,14 @@ DATABASES = {
         'PORT': '',      # Add this line (empty string for SQLite)
     }
 }
+import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# ... other settings ...
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# ... other settings ...
