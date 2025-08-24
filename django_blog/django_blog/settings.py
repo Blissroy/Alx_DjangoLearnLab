@@ -68,7 +68,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'django_blog.wsgi.application'
+# Auth redirects
+LOGIN_REDIRECT_URL = 'blog:home'      # change to your homepage name
+LOGOUT_REDIRECT_URL = 'blog:home'     # where to go after logout
+LOGIN_URL = 'login'                   # used by @login_required
 
+# Media for profile pictures
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# Dev-only email backend (password reset later if you add it)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
