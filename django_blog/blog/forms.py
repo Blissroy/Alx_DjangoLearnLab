@@ -120,3 +120,14 @@ class PostForm(forms.ModelForm):
                 tag, created = Tag.objects.get_or_create(name=name)
                 post.tags.add(tag)
         return post
+from django import forms
+from .models import Post
+from taggit.forms import TagWidget
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'content', 'tags']
+        widgets = {
+            'tags': TagWidget(),  # This should now be present
+        }
