@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'taggit',
 ]
 
 MIDDLEWARE = [
@@ -68,7 +69,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'django_blog.wsgi.application'
+# Auth redirects
+LOGIN_REDIRECT_URL = 'blog:home'      # change to your homepage name
+LOGOUT_REDIRECT_URL = 'blog:home'     # where to go after logout
+LOGIN_URL = 'login'                   # used by @login_required
 
+# Media for profile pictures
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# Dev-only email backend (password reset later if you add it)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
@@ -121,3 +132,28 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# django_blog/settings.py
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+        'USER': '',      # Add this line (empty string for SQLite)
+        'PASSWORD': '',  # Add this line (optional but good practice)
+        'HOST': '',      # Add this line (optional)
+        'PORT': '',      # Add this line (empty string for SQLite)
+    }
+}
+import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# ... other settings ...
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# ... other settings ...
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / "static"]  # for project-level static
+STATIC_ROOT = BASE_DIR / "staticfiles"    # for collectstatic

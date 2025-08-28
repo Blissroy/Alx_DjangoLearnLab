@@ -1,23 +1,22 @@
 # django_blog/settings.py
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+        'USER': '',      # Add this line (empty string for SQLite)
+        'PASSWORD': '',  # Add this line (optional but good practice)
+        'HOST': '',      # Add this line (optional)
+        'PORT': '',      # Add this line (empty string for SQLite)
+    }
+}
 import os
+from pathlib import Path
 
-# ... existing code ...
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'APP_DIRS': True,
-        # ... rest of the TEMPLATES config ...
-    },
-]
+# ... other settings ...
 
-# ... existing code ...
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'blog/static'),
-]
-
-
-
+# ... other settings ...
