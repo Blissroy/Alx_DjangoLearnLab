@@ -64,5 +64,5 @@ app_name = "blog"
 
 urlpatterns = [
     path("search/", views.search_posts, name="search_posts"),
-    path("tags/<slug:slug>/", views.posts_by_tag, name="posts_by_tag"),
+    path("tags/<slug:tag_slug>/" , PostByTagListView.as_view() , name="posts_by_tag"),
 ]
